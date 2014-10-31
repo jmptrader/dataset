@@ -1,4 +1,4 @@
-package stat
+package statlib
 
 // Summary is struct used to hold the classic "five number summary".
 type Summary struct {
