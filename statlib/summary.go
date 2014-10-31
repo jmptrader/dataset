@@ -1,5 +1,10 @@
 package statlib
 
+import (
+	"bytes"
+	"fmt"
+)
+
 // Summary is struct used to hold the classic "five number summary".
 type Summary struct {
 	Min           float64
@@ -7,6 +12,18 @@ type Summary struct {
 	Median        float64
 	UpperQuartile float64
 	Max           float64
+}
+
+func (s Summary) String() string {
+	buf := &bytes.Buffer{}
+	fmt.Fprintf(buf, "Five-number Summary         \n")
+	fmt.Fprintf(buf, "----------------------------\n")
+	fmt.Fprintf(buf, "Min               %10g\n", s.Min)
+	fmt.Fprintf(buf, "Lower Quartile    %10g\n", s.LowerQuartile)
+	fmt.Fprintf(buf, "Median            %10g\n", s.Median)
+	fmt.Fprintf(buf, "Upper Quartile    %10g\n", s.UpperQuartile)
+	fmt.Fprintf(buf, "Max               %10g", s.Max)
+	return buf.String()
 }
 
 // FiveNumberSummary calculates and return a Summary object representing the

@@ -6,6 +6,19 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestSummary_String(t *testing.T) {
+	d := NewDataset(1, 2, 3, 4, 5)
+	assert.Equal(t, "Five-number Summary         \n"+
+		"----------------------------\n"+
+		"Min                        1\n"+
+		"Lower Quartile             2\n"+
+		"Median                     3\n"+
+		"Upper Quartile             4\n"+
+		"Max                        5",
+		d.FiveNumberSummary().String())
+
+}
+
 func TestDataset_FiveNumberSummary(t *testing.T) {
 	// Test the case of a single data point.
 	d := NewDataset(12)
