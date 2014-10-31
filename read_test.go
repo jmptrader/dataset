@@ -7,10 +7,8 @@ import (
 )
 
 func TestReadDataset(t *testing.T) {
-	dataset, err := ReadDataset([]byte("\n12.3\n\t12.4    7"))
+	dataset, err := ReadDataset([]byte("\n1.23e2\n\t12.4    7"))
 	if assert.NoError(t, err) {
-		assert.Equal(t, &Dataset{
-			records: []Record{12.3, 12.4, 7},
-		}, dataset)
+		assert.Equal(t, NewDataset(1.23e2, 12.4, 7), dataset)
 	}
 }

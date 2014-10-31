@@ -6,8 +6,8 @@ import "strconv"
 // splitting the bytes by whitespace.
 func ReadDataset(bytes []byte) (*Dataset, error) {
 	var (
-		records      = []Record{} // list of parsed records
-		recordString = []byte{}   // current record
+		records      = []float64{} // list of parsed records
+		recordString = []byte{}    // current record
 	)
 
 	for _, b := range bytes {
@@ -21,7 +21,7 @@ func ReadDataset(bytes []byte) (*Dataset, error) {
 			if err != nil {
 				return nil, err
 			}
-			records = append(records, Record(f))
+			records = append(records, f)
 			recordString = []byte{}
 		default:
 			recordString = append(recordString, b)
@@ -33,8 +33,8 @@ func ReadDataset(bytes []byte) (*Dataset, error) {
 		if err != nil {
 			return nil, err
 		}
-		records = append(records, Record(f))
+		records = append(records, f)
 	}
 
-	return &Dataset{records: records}, nil
+	return NewDataset(records...), nil
 }
