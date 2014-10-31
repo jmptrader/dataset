@@ -22,38 +22,19 @@ func NewDataset(records ...float64) *Dataset {
 	return d
 }
 
-// Summary is struct used to hold the classic "five number summary".
-type Summary struct {
-	Min           float64
-	LowerQuartile float64
-	Median        float64
-	UpperQuartile float64
-	Max           float64
-}
-
 // Percentile retrieves the number at the `index`-th percentile of the
-// distribution. `index` must be between 0 and 1.
+// distribution. `index` must be between 0 and 1. An `index` of 0.5 retrieves
+// the median. If the dataset has an even number of records, the number is the
+// average of the two nearest samples to the percentile.
 func (d *Dataset) Percentile(index float64) float64 {
+	if index > 1 || index < 0 {
+		panic("Index provided to percentile must be between 0 and 1")
+	}
+
 	intIndex := int(index * float64(d.len-1))
 	record := d.records[intIndex]
-	if d.len%2 == 0 {
+	if d.len%2 == 0 && intIndex < d.len-1 {
 		record = (record + d.records[intIndex+1]) / 2
 	}
 	return record
-}
-
-// FiveNumberSummary calculates and return a Summary object representing the
-// five number summary of the dataset.
-func (d *Dataset) FiveNumberSummary() Summary {
-	summary := Summary{}
-
-	if d.len > 0 {
-		summary.Min = d.records[0]
-		summary.LowerQuartile = d.Percentile(.25)
-		summary.Median = d.Percentile(.5)
-		summary.UpperQuartile = d.Percentile(.75)
-		summary.Max = d.records[len(d.records)-1]
-	}
-
-	return summary
 }
