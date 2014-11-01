@@ -71,10 +71,8 @@ func (d *Dataset) Buckets(n int) []*Dataset {
 		// how far is this record from the bottom of the distribution?
 		difference := record - min
 
-		var index int
-		if difference == 0 {
-			index = 0
-		} else {
+		index := 0
+		if difference != 0 {
 			index = int((record - min) / bucketSize)
 			// this conditional is here because the final record
 			// will be exactly equal to the topmost bracket (a.k.a.
