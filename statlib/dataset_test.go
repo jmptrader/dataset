@@ -28,3 +28,18 @@ func TestDataset_Percentile(t *testing.T) {
 	assert.Equal(t, 14.5, d.Percentile(.75))
 	assert.Equal(t, 15, d.Percentile(1))
 }
+
+func TestDataset_Blocks(t *testing.T) {
+	d := NewDataset(1, 2, 3, 4, 5, 6, 7, 8)
+	assert.Equal(t, []*Dataset{
+		NewDataset(1, 2, 3, 4),
+		NewDataset(5, 6, 7, 8),
+	}, d.Blocks(2))
+
+	assert.Equal(t, []*Dataset{
+		NewDataset(1, 2),
+		NewDataset(3, 4),
+		NewDataset(5, 6),
+		NewDataset(7, 8),
+	}, d.Blocks(4))
+}

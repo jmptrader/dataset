@@ -38,3 +38,19 @@ func (d *Dataset) Percentile(index float64) float64 {
 	}
 	return record
 }
+
+// Blocks splits the dataset into `n` blocks containing an approximately the
+// same number of elements in each block. The blocks are sorted from smallest
+// value to largest value.
+func (d *Dataset) Blocks(n int) []*Dataset {
+	blocks := make([]*Dataset, n)
+	for i := range blocks {
+		blocks[i] = NewDataset(d.records[i*d.len/n : (i+1)*d.len/n]...)
+	}
+	return blocks
+}
+
+// Len returns the count of elements in the Dataset
+func (d *Dataset) Len() int {
+	return d.len
+}
