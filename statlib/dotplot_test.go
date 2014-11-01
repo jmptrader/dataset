@@ -11,6 +11,6 @@ func TestDataset_Dotplot(t *testing.T) {
 	assert.Equal(t, "  .     .         \n"+
 		"  .     .     .   \n"+
 		"  .     .     .   \n"+
-		" 1.00  3.33  5.67 \n",
+		" 1.00  3.33  5.67 ",
 		d.Dotplot(20))
 }

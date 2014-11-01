@@ -38,6 +38,6 @@ func (d *Dataset) Dotplot(width int) string {
 		}
 		fmt.Fprintf(buf, "%s\n", line)
 	}
-	fmt.Fprintf(buf, "%s\n", bottomLine)
+	fmt.Fprintf(buf, "%s", bottomLine)
 	return buf.String()
 }
