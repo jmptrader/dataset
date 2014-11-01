@@ -6,9 +6,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSummary_String(t *testing.T) {
+func TestSummary_AsTable(t *testing.T) {
 	d := NewDataset(1, 2, 3, 4, 5)
-	assert.Equal(t, "Five-number Summary         \n"+
+	assert.Equal(t, "Five-number Summary\n"+
 		"----------------------------\n"+
 		"Min                        1\n"+
 		"Lower Quartile             2\n"+
