@@ -42,4 +42,47 @@ func TestDataset_Blocks(t *testing.T) {
 		NewDataset(5, 6),
 		NewDataset(7, 8),
 	}, d.Blocks(4))
+
+	assert.Equal(t, []*Dataset{
+		nil,
+		NewDataset(1),
+		NewDataset(2),
+		NewDataset(3),
+		NewDataset(4),
+		nil,
+		NewDataset(5),
+		NewDataset(6),
+		NewDataset(7),
+		NewDataset(8),
+	}, d.Blocks(10))
+}
+
+func TestDataset_Buckets(t *testing.T) {
+	d := NewDataset(1.2, 3.7, 3.9, 4.0)
+
+	assert.Equal(t, []*Dataset{
+		NewDataset(1.2),
+		NewDataset(3.7, 3.9, 4.0),
+	}, d.Buckets(2))
+
+	assert.Equal(t, []*Dataset{
+		NewDataset(1.2),
+		NewDataset(),
+		NewDataset(),
+		NewDataset(3.7, 3.9, 4.0),
+	}, d.Buckets(4))
+
+	d = NewDataset(1)
+	assert.Equal(t, []*Dataset{
+		NewDataset(1),
+		NewDataset(),
+		NewDataset(),
+	}, d.Buckets(3))
+
+	d = NewDataset(7, 7, 7, 7, 7)
+	assert.Equal(t, []*Dataset{
+		NewDataset(7, 7, 7, 7, 7),
+		NewDataset(),
+		NewDataset(),
+	}, d.Buckets(3))
 }
