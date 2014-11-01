@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-// Dotplot will make an attempt to fit within the specified `width` in columns.
-func (d *Dataset) Dotplot(width int) string {
+// Histogram will make an attempt to fit within the specified `width` in columns.
+func (d *Dataset) Histogram(width int) string {
 	bucketCount := width / 6 // we need about 6 columns per dotplot
 	buckets := d.Buckets(bucketCount)
 	bucketSize := d.Range() / float64(bucketCount)
