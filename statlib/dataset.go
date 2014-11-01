@@ -64,6 +64,9 @@ func (d *Dataset) Blocks(n int) []*Dataset {
 // elements than others because each bucket will contain elements in the same
 // size of range as every other bucket.
 func (d *Dataset) Buckets(n int) []*Dataset {
+	if n <= 1 {
+		return []*Dataset{d}
+	}
 	buckets := make([][]float64, n)
 	min := d.records[0]
 	bucketSize := d.Range() / float64(n)

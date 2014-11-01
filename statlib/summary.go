@@ -22,6 +22,7 @@ func (s Summary) String() string {
 // AsTable returns a formatted, humanreadable string that attempts to fit within
 // `width` columns.
 func (s Summary) AsTable(width int) string {
+	clampWidth(&width)
 	buf := &bytes.Buffer{}
 	fmt.Fprintf(buf, "Five-number Summary\n")
 	fmt.Fprintf(buf, "%s\n", strings.Repeat("-", width))

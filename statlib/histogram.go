@@ -5,8 +5,11 @@ import (
 	"fmt"
 )
 
-// Histogram will make an attempt to fit within the specified `width` in columns.
+// Histogram will make an attempt to fit within the specified `width` in
+// columns.
 func (d *Dataset) Histogram(width int) string {
+	clampWidth(&width)
+
 	bucketCount := width / 6 // we need about 6 columns per dotplot
 	buckets := d.Buckets(bucketCount)
 	bucketSize := d.Range() / float64(bucketCount)
