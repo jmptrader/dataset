@@ -1,6 +1,9 @@
 package statlib
 
-import "strconv"
+import (
+	"errors"
+	"strconv"
+)
 
 // ReadDataset takes a slice of bytes and returns the corresponding Dataset,
 // splitting the bytes by whitespace.
@@ -34,6 +37,10 @@ func ReadDataset(bytes []byte) (*Dataset, error) {
 			return nil, err
 		}
 		records = append(records, f)
+	}
+
+	if len(records) < 1 {
+		return nil, errors.New(`no records found in dataset`)
 	}
 
 	return NewDataset(records...), nil
