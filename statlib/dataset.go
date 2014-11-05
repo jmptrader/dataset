@@ -5,9 +5,10 @@ import (
 	"sort"
 )
 
-// Datasets are IMMUTABLE
+// Dataset is an IMMUTABLE struct.
 type Dataset struct {
 	records []float64
+	sum     float64
 	len     int
 }
 
@@ -23,6 +24,9 @@ func NewDataset(records ...float64) *Dataset {
 	d := &Dataset{
 		records: []float64(slice),
 		len:     len(records),
+	}
+	for _, record := range d.records {
+		d.sum = d.sum + record
 	}
 	return d
 }
@@ -63,6 +67,8 @@ func (d *Dataset) Blocks(n int) []*Dataset {
 // Buckets splits the dataset into `n` buckets. Some buckets may contain more
 // elements than others because each bucket will contain elements in the same
 // size of range as every other bucket.
+//
+// The primary use is in making a histogram.
 func (d *Dataset) Buckets(n int) []*Dataset {
 	if n <= 1 {
 		return []*Dataset{d}
@@ -93,6 +99,11 @@ func (d *Dataset) Buckets(n int) []*Dataset {
 		bucketDatasets[i] = NewDataset(bucket...)
 	}
 	return bucketDatasets
+}
+
+// Average returns the mathematical mean of the Dataset's points.
+func (d *Dataset) Average() float64 {
+	return d.sum / float64(d.len)
 }
 
 // Len returns the count of elements in the Dataset
