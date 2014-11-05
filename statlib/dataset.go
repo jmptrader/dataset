@@ -8,8 +8,12 @@ import (
 // Dataset is an IMMUTABLE struct.
 type Dataset struct {
 	records []float64
-	sum     float64
 	len     int
+
+	// these can be cached because remember, datasets are IMMUTABLE
+	sum float64
+	min float64
+	max float64
 }
 
 // NewDataset constructs a dataset from the provided records. The records can be
@@ -25,6 +29,8 @@ func NewDataset(records ...float64) *Dataset {
 		records: []float64(slice),
 		len:     len(records),
 	}
+	d.min = d.records[0]
+	d.max = d.records[d.len-1]
 	for _, record := range d.records {
 		d.sum = d.sum + record
 	}
@@ -74,15 +80,14 @@ func (d *Dataset) Buckets(n int) []*Dataset {
 		return []*Dataset{d}
 	}
 	buckets := make([][]float64, n)
-	min := d.records[0]
 	bucketSize := d.Range() / float64(n)
 	for _, record := range d.records {
 		// how far is this record from the bottom of the distribution?
-		difference := record - min
+		difference := record - d.min
 
 		index := 0
 		if difference != 0 {
-			index = int((record - min) / bucketSize)
+			index = int((record - d.min) / bucketSize)
 			// this conditional is here because the final record
 			// will be exactly equal to the topmost bracket (a.k.a.
 			// the start of the where the next bucket would be).
@@ -104,6 +109,11 @@ func (d *Dataset) Buckets(n int) []*Dataset {
 // Average returns the mathematical mean of the Dataset's points.
 func (d *Dataset) Average() float64 {
 	return d.sum / float64(d.len)
+}
+
+// Spread returns the distance from the minimum point to the maximum point.
+func (d *Dataset) Spread() float64 {
+	return d.max - d.min
 }
 
 // Len returns the count of elements in the Dataset

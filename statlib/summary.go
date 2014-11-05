@@ -42,11 +42,11 @@ func (d *Dataset) FiveNumberSummary() Summary {
 	summary := Summary{}
 
 	if d.len > 0 {
-		summary.Min = d.records[0]
+		summary.Min = d.min
 		summary.LowerQuartile = d.Percentile(.25)
 		summary.Median = d.Percentile(.5)
 		summary.UpperQuartile = d.Percentile(.75)
-		summary.Max = d.records[len(d.records)-1]
+		summary.Max = d.max
 	}
 
 	return summary

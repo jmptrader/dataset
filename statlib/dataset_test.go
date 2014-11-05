@@ -97,3 +97,14 @@ func TestDataset_Average(t *testing.T) {
 	d = NewDataset(-5, 5)
 	assert.Equal(t, 0, d.Average())
 }
+
+func TestDataset_Spread(t *testing.T) {
+	d := NewDataset(1, 2, 3)
+	assert.Equal(t, 2, d.Spread())
+	d = NewDataset(1, 2, 6)
+	assert.Equal(t, 5, d.Spread())
+	d = NewDataset(0.5, 1.5)
+	assert.Equal(t, 1, d.Spread())
+	d = NewDataset(-5, 5)
+	assert.Equal(t, 10, d.Spread())
+}
