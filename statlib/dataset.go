@@ -106,8 +106,8 @@ func (d *Dataset) Buckets(n int) []*Dataset {
 	return bucketDatasets
 }
 
-// Average returns the mathematical mean of the Dataset's points.
-func (d *Dataset) Average() float64 {
+// Mean returns the mathematical average of the Dataset's points.
+func (d *Dataset) Mean() float64 {
 	return d.sum / float64(d.len)
 }
 

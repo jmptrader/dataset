@@ -87,15 +87,15 @@ func TestDataset_Buckets(t *testing.T) {
 	}, d.Buckets(3))
 }
 
-func TestDataset_Average(t *testing.T) {
+func TestDataset_Mean(t *testing.T) {
 	d := NewDataset(1, 2, 3)
-	assert.Equal(t, 2, d.Average())
+	assert.Equal(t, 2, d.Mean())
 	d = NewDataset(1, 2, 6)
-	assert.Equal(t, 3, d.Average())
+	assert.Equal(t, 3, d.Mean())
 	d = NewDataset(0.5, 1.5)
-	assert.Equal(t, 1, d.Average())
+	assert.Equal(t, 1, d.Mean())
 	d = NewDataset(-5, 5)
-	assert.Equal(t, 0, d.Average())
+	assert.Equal(t, 0, d.Mean())
 }
 
 func TestDataset_Spread(t *testing.T) {
