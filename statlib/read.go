@@ -6,7 +6,7 @@ import (
 )
 
 // ReadDataset takes a slice of bytes and returns the corresponding Dataset,
-// splitting the bytes by whitespace.
+// reading as many floats as possible.
 func ReadDataset(bytes []byte) (*Dataset, error) {
 	var (
 		records      = []float64{} // list of parsed records
@@ -21,11 +21,10 @@ func ReadDataset(bytes []byte) (*Dataset, error) {
 			}
 
 			f, err := strconv.ParseFloat(string(recordString), 64)
-			if err != nil {
-				return nil, err
-			}
-			records = append(records, f)
 			recordString = []byte{}
+			if err == nil {
+				records = append(records, f)
+			}
 		default:
 			recordString = append(recordString, b)
 		}
