@@ -10,7 +10,7 @@ import (
 func (d *Dataset) Histogram(width int) string {
 	clampWidth(&width)
 
-	bucketCount := width / 6 // we need about 6 columns per dotplot
+	bucketCount := width / 8 // we need about 6 columns per dotplot
 	buckets := d.Buckets(bucketCount)
 	bucketSize := d.Range() / float64(bucketCount)
 
@@ -23,7 +23,7 @@ func (d *Dataset) Histogram(width int) string {
 		// characters without truncating and ending up with a result
 		// that looks like the right number but could be off by an order
 		// of magnitude
-		s := fmt.Sprintf("%5.2f ", d.records[0]+(bucketSize*float64(i)))
+		s := fmt.Sprintf("%7.2f ", d.records[0]+(bucketSize*float64(i)))
 		bottomLine = bottomLine + s
 		if bucket != nil && bucket.len > maxHeight {
 			maxHeight = bucket.len
