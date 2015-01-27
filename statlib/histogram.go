@@ -12,7 +12,7 @@ func (d *Dataset) Histogram(width int) string {
 
 	bucketCount := width / 8 // we need about 6 columns per dotplot
 	buckets := d.Buckets(bucketCount)
-	bucketSize := d.Range() / float64(bucketCount)
+	bucketSize := d.Spread() / float64(bucketCount)
 
 	buf := new(bytes.Buffer)
 

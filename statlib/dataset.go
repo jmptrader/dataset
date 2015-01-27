@@ -46,17 +46,15 @@ func (d *Dataset) Percentile(index float64) float64 {
 		panic("Index provided to percentile must be between 0 and 1")
 	}
 
+	if index == 0 {
+		return d.records[0]
+	}
 	intIndex := int(index * float64(d.len-1))
 	record := d.records[intIndex]
 	if d.len%2 == 0 && intIndex < d.len-1 {
 		record = (record + d.records[intIndex+1]) / 2
 	}
 	return record
-}
-
-// Range returns the maximum minus the minimum record.
-func (d *Dataset) Range() float64 {
-	return d.records[d.len-1] - d.records[0]
 }
 
 // Blocks splits the dataset into `n` blocks containing an approximately the
@@ -80,7 +78,7 @@ func (d *Dataset) Buckets(n int) []*Dataset {
 		return []*Dataset{d}
 	}
 	buckets := make([][]float64, n)
-	bucketSize := d.Range() / float64(n)
+	bucketSize := d.Spread() / float64(n)
 	for _, record := range d.records {
 		// how far is this record from the bottom of the distribution?
 		difference := record - d.min
