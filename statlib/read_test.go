@@ -16,4 +16,9 @@ func TestReadDataset(t *testing.T) {
 	if assert.NoError(t, err) {
 		assert.Equal(t, NewDataset(12.4, 1, 7), dataset)
 	}
+
+	dataset, err = ReadDataset([]byte("12.4,1;7"))
+	if assert.NoError(t, err) {
+		assert.Equal(t, NewDataset(12.4, 1, 7), dataset)
+	}
 }

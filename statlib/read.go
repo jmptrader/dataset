@@ -15,7 +15,7 @@ func ReadDataset(bytes []byte) (*Dataset, error) {
 
 	for _, b := range bytes {
 		switch b {
-		case ' ', '\n', '\t':
+		case ' ', '\n', '\t', ',', ';':
 			if len(recordString) < 1 {
 				continue
 			}
@@ -25,6 +25,7 @@ func ReadDataset(bytes []byte) (*Dataset, error) {
 			if err == nil {
 				records = append(records, f)
 			}
+
 		default:
 			recordString = append(recordString, b)
 		}
