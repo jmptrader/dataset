@@ -34,9 +34,9 @@ func (d *Dataset) Histogram(width int) string {
 		line := ``
 		for _, bucket := range buckets {
 			if bucket != nil && bucket.len >= maxHeight-i {
-				line = line + `  *   `
+				line = line + `   *    `
 			} else {
-				line = line + `      `
+				line = line + `        `
 			}
 		}
 		fmt.Fprintf(buf, "%s\n", line)
