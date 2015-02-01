@@ -8,7 +8,7 @@ numbers on the command line.
 Install:
 
 ```sh
-	go install github.com/alexandercampbell/dataset
+	go get github.com/alexandercampbell/dataset
 ```
 
 Usage:
